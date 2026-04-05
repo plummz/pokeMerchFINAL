@@ -1,370 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Collection — John Rey's PokéMerch</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="PokemonTheme.css" />
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — John Rey's PokéMerch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="AddToCart.css" />
+  <style>
+  
+    .cart-item-block {
+      border-bottom: 1px solid #1a1a3a;
+      padding: 10px 0;
+      margin-bottom: 4px;
+    }
+    .cart-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+    .cart-item-name {
+      font-family: 'Press Start 2P', sans-serif;
+      font-size: 9px;
+      color: #f0f0f0;
+      line-height: 1.5;
+    }
+    .cart-item-remove {
+      background: none;
+      border: 1px solid #cc0000;
+      color: #ff4444;
+      font-size: 11px;
+      width: 22px; height: 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+    .cart-item-remove:hover {
+      background-color: #cc0000;
+      color: white;
+    }
+    .cart-item-meta {
+      font-size: 12px;
+      color: #aaaacc;
+      margin-bottom: 4px;
+    }
+    .cart-item-meta span { color: #f0f0f0; }
 
-.col-hero {
-background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 60%, #0a0a1a 100%);
-padding: 60px 40px;
-text-align: center;
-position: relative;
-overflow: hidden;
-}
-.col-hero::before {
-content: '';
-position: absolute; inset: 0;
-background: radial-gradient(ellipse at center, rgba(204,0,0,0.12) 0%, transparent 70%);
-}
-.col-hero-title {
-font-family: var(--pkm-font-pixel);
-font-size: 28px;
-color: var(--pkm-yellow-primary);
-position: relative; z-index: 1;
-margin-bottom: 12px;
-line-height: 1.5;
-}
-.col-hero-sub {
-font-size: 15px;
-color: var(--pkm-text-muted);
-position: relative; z-index: 1;
-}
-.col-grid {
-display: flex;
-flex-wrap: wrap;
-gap: 28px;
-padding: 40px 60px 60px;
-justify-content: center;
-}
-.col-card {
-background-color: var(--pkm-bg-dark);
-border: 2px solid var(--pkm-red-primary);
-border-radius: var(--pkm-radius-card);
-width: 270px;
-overflow: hidden;
-transition: border-color 0.2s, transform 0.2s;
-}
-.col-card:hover {
-border-color: var(--pkm-yellow-primary);
-transform: translateY(-5px);
-}
-.col-img {
-background-color: var(--pkm-bg-mid);
-height: 200px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 90px;
-position: relative;
-}
-.col-img img {
-max-width: 100%;
-max-height: 180px;
-object-fit: contain;
-}
-.rarity-badge {
-position: absolute;
-top: 10px; right: 10px;
-font-family: var(--pkm-font-pixel);
-font-size: 7px;
-padding: 4px 8px;
-border-radius: 20px;
-letter-spacing: 0.5px;
-}
-.rarity-common { background-color: #444466; color: #ccccee; border: 1px solid #666688; }
-.rarity-uncommon { background-color: #226622; color: #88ff88; border: 1px solid #44aa44; }
-.rarity-rare { background-color: #003388; color: #88ccff; border: 1px solid #4488cc; }
-.rarity-epic { background-color: #662266; color: #ffaadd; border: 1px solid #aa44aa; }
-.rarity-legendary { background-color: #885500; color: #ffcc00; border: 1px solid #ffaa00; }
-.rarity-mythic { background-color: #550033; color: #ff88cc; border: 1px solid #ff44aa; }
-.col-body {
-padding: 18px;
-}
-.col-name {
-font-family: var(--pkm-font-pixel);
-font-size: 12px;
-color: var(--pkm-yellow-primary);
-margin-bottom: 6px;
-}
-.col-number {
-font-size: 11px;
-color: var(--pkm-text-dim);
-margin-bottom: 8px;
-}
-.col-type {
-font-size: 11px; font-weight: bold;
-padding: 3px 9px; border-radius: 10px;
-display: inline-block; margin-bottom: 10px;
-}
-.col-desc {
-font-size: 12px;
-color: var(--pkm-text-muted);
-line-height: 1.7;
-margin-bottom: 12px;
-}
-.col-stats {
-display: flex;
-gap: 8px;
-flex-wrap: wrap;
-margin-bottom: 14px;
-}
-.col-stat {
-background-color: #1a1a3a;
-border: 1px solid #2a2a4a;
-border-radius: 6px;
-padding: 4px 10px;
-font-size: 11px;
-color: var(--pkm-text-muted);
-}
-.col-stat span {
-color: var(--pkm-yellow-primary);
-font-weight: bold;
-}
-.col-price {
-font-family: var(--pkm-font-pixel);
-font-size: 14px;
-color: var(--pkm-red-accent);
-margin-bottom: 14px;
-}
-.col-add-btn {
-display: block;
-background-color: var(--pkm-red-primary);
-border: none; color: white;
-font-family: var(--pkm-font-pixel);
-font-size: 9px; padding: 10px;
-border-radius: var(--pkm-radius-btn);
-cursor: pointer; width: 100%;
-text-decoration: none; text-align: center;
-transition: background-color 0.2s;
-}
-.col-add-btn:hover { background-color: var(--pkm-red-hover); }
-.back-link {
-font-family: var(--pkm-font-pixel);
-font-size: 10px;
-color: var(--pkm-yellow-primary);
-text-decoration: none;
-}
-.back-link:hover { color: var(--pkm-red-primary); }
-</style>
+    
+    .cart-qty-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 6px 0;
+    }
+    .cart-qty-label {
+      font-size: 11px;
+      color: #aaaacc;
+      margin-right: 8px;
+    }
+    .cart-qty-btn {
+      width: 24px; height: 24px;
+      background-color: #cc0000;
+      border: none; color: white;
+      font-size: 14px; font-weight: bold;
+      cursor: pointer; line-height: 1;
+    }
+    .cart-qty-btn:first-of-type { border-radius: 4px 0 0 4px; }
+    .cart-qty-btn:last-of-type  { border-radius: 0 4px 4px 0; }
+    .cart-qty-btn:hover { background-color: #aa0000; }
+    .cart-qty-input {
+      width: 38px; height: 24px;
+      background-color: #1a1a3a;
+      border-top: 1px solid #cc0000;
+      border-bottom: 1px solid #cc0000;
+      border-left: none; border-right: none;
+      color: #f0f0f0;
+      font-family: 'Press Start 2P', sans-serif;
+      font-size: 9px; text-align: center; outline: none;
+      -moz-appearance: textfield;
+    }
+    .cart-qty-input::-webkit-outer-spin-button,
+    .cart-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .cart-item-subtotal {
+      font-size: 12px;
+      color: #aaaacc;
+      margin-top: 2px;
+    }
+    .cart-item-subtotal span {
+      color: #f0f0f0;
+      font-weight: bold;
+    }
+
+    
+    .cart-empty {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .cart-empty p {
+      font-family: 'Press Start 2P', sans-serif;
+      font-size: 9px;
+      color: #aaaacc;
+      line-height: 2;
+      margin-bottom: 14px;
+    }
+    .cart-empty a {
+      display: inline-block;
+      background-color: #cc0000;
+      color: white;
+      font-family: 'Press Start 2P', sans-serif;
+      font-size: 9px;
+      padding: 10px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .cart-empty a:hover { background-color: #aa0000; }
+
+   
+    .clear-cart-btn {
+      background: none;
+      border: 1px solid #444466;
+      color: #aaaacc;
+      font-family: 'Press Start 2P', sans-serif;
+      font-size: 8px;
+      padding: 7px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+    .clear-cart-btn:hover {
+      border-color: #cc0000;
+      color: #ff4444;
+    }
+  </style>
 </head>
 <body>
-<div class="top-banner">
-🎮 GOTTA CATCH 'EM ALL! &nbsp;•&nbsp; FREE SHIPPING &nbsp;•&nbsp; LIMITED STOCKS &nbsp;•&nbsp; COD AVAILABLE 🎮
-</div>
-<div class="navbar">
-<div class="logo">JOHN REY'S <span>POKEMERCH</span></div>
-<a href="index.html" class="back-link">← BACK TO SHOP</a>
-<div class="nav-right">
-<div onclick="window.location='checkout.html'" style="cursor:pointer;">
-🛒 Cart <span class="cart-count" id="nav-cart-count">0</span>
-</div>
-<div>👤 Login</div>
-</div>
-</div>
-<div class="col-hero">
-<p class="col-hero-title">📖 POKÉMON COLLECTION</p>
-<p class="col-hero-sub">All figures available at John Rey's PokéMerch — pick your favorites!</p>
-</div>
-<div class="section-label">⚔️ ALL FIGURES</div>
-<div class="col-grid">
 
-<div class="col-card">
-<div class="col-img anim-float">
-<img src="charizard.png" alt="Charizard" onerror="this.style.display='none';this.parentNode.innerHTML+='🔥'"/>
-<span class="rarity-badge rarity-rare">★★★ RARE</span>
-</div>
-<div class="col-body">
-<p class="col-number">#006 — Flame Pokémon</p>
-<p class="col-name">CHARIZARD</p>
-<span class="col-type fire">🔥 Fire / Flying</span>
-<p class="col-desc">A fearsome Fire-type dragon with blazing wings. This premium figure captures Charizard mid-roar, surrounded by real flame effects on a volcanic base. One of the most iconic Pokémon ever made.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>1.7m</span></div>
-<div class="col-stat">Weight: <span>90.5kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱499</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Charizard',499,this)">ADD TO CART</a>
-</div>
-</div>
+  <div class="top-banner">
+    🎮 SECURE CHECKOUT &nbsp;•&nbsp; FREE SHIPPING &nbsp;•&nbsp; COD AVAILABLE &nbsp;•&nbsp; 100% AUTHENTIC 🎮
+  </div>
 
-<div class="col-card">
-<div class="col-img anim-shake">
-<img src="pikachu.png" alt="Pikachu" onerror="this.style.display='none';this.parentNode.innerHTML+='⚡'"/>
-<span class="rarity-badge rarity-uncommon">★★ UNCOMMON</span>
-</div>
-<div class="col-body">
-<p class="col-number">#025 — Mouse Pokémon</p>
-<p class="col-name">PIKACHU</p>
-<span class="col-type electric">⚡ Electric</span>
-<p class="col-desc">The world's most recognized Pokémon in a battle-ready stance, with lightning bolt effects crackling on both sides. Every Trainer's first companion — now on your shelf forever.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>0.4m</span></div>
-<div class="col-stat">Weight: <span>6kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱449</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Pikachu',449,this)">ADD TO CART</a>
-</div>
-</div>
+  <div class="navbar">
+    <div class="logo">JOHN REY'S <span>POKÉMERCH</span></div>
+    <a href="index.html" class="back-link">← BACK TO SHOP</a>
+  </div>
 
-<div class="col-card">
-<div class="col-img anim-bob">
-<img src="bulbasaur.png" alt="Bulbasaur" onerror="this.style.display='none';this.parentNode.innerHTML+='🌿'"/>
-<span class="rarity-badge rarity-common">★ COMMON</span>
-</div>
-<div class="col-body">
-<p class="col-number">#001 — Seed Pokémon</p>
-<p class="col-name">BULBASAUR</p>
-<span class="col-type grass">🌿 Grass / Poison</span>
-<p class="col-desc">The lovable Seed Pokémon with a highly detailed vine bulb on its back. Comes with a lush grass display base, perfect for any nature-loving Trainer's collection.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>0.7m</span></div>
-<div class="col-stat">Weight: <span>6.9kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱399</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Bulbasaur',399,this)">ADD TO CART</a>
-</div>
-</div>
+  <p class="page-title">🛒 CHECKOUT</p>
+  <p class="page-sub">Complete your order below — we'll handle the rest!</p>
 
-<div class="col-card">
-<div class="col-img anim-bounce">
-<img src="squirtle.png" alt="Squirtle" onerror="this.style.display='none';this.parentNode.innerHTML+='💧'"/>
-<span class="rarity-badge rarity-common">★ COMMON</span>
-</div>
-<div class="col-body">
-<p class="col-number">#007 — Tiny Turtle Pokémon</p>
-<p class="col-name">SQUIRTLE</p>
-<span class="col-type water">💧 Water</span>
-<p class="col-desc">The cheerful Tiny Turtle Pokémon leaping into action, set on a translucent water wave base. The shell detail on this figure is absolutely stunning up close.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>0.5m</span></div>
-<div class="col-stat">Weight: <span>9kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱399</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Squirtle',399,this)">ADD TO CART</a>
-</div>
-</div>
+  <div class="checkout-wrapper">
 
-<div class="col-card">
-<div class="col-img anim-sway">
-<img src="meowth.png" alt="Meowth" onerror="this.style.display='none';this.parentNode.innerHTML+='🪙'"/>
-<span class="rarity-badge rarity-uncommon">★★ UNCOMMON</span>
-</div>
-<div class="col-body">
-<p class="col-number">#052 — Scratch Cat Pokémon</p>
-<p class="col-name">MEOWTH</p>
-<span class="col-type normal">🪙 Normal</span>
-<p class="col-desc">Team Rocket's lovable schemer, sitting atop a treasure chest overflowing with coins and gems. The gold coin on its forehead is painted with stunning metallic finish.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>0.4m</span></div>
-<div class="col-stat">Weight: <span>4.2kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱379</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Meowth',379,this)">ADD TO CART</a>
-</div>
-</div>
+    <!-- LEFT: FORM -->
+    <div class="checkout-form">
+      <p class="form-title">📋 DELIVERY INFORMATION</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="e.g. Juan" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="e.g. Dela Cruz" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Contact Number</label>
+        <input type="text" placeholder="e.g. 09XX XXX XXXX" />
+      </div>
+      <div class="form-group">
+        <label>Email Address (optional)</label>
+        <input type="email" placeholder="e.g. juan@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Region / Province</label>
+        <select>
+          <option value="">-- Select Region --</option>
+          <option>Metro Manila</option>
+          <option>Luzon</option>
+          <option>Visayas</option>
+          <option>Mindanao</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>City / Municipality</label>
+        <input type="text" placeholder="e.g. Iloilo City" />
+      </div>
+      <div class="form-group">
+        <label>Barangay</label>
+        <input type="text" placeholder="e.g. Brgy. San Jose" />
+      </div>
+      <div class="form-group">
+        <label>Complete Address</label>
+        <textarea placeholder="House No., Street, Subdivision, Landmark..."></textarea>
+      </div>
+      <hr class="section-divider" />
+      <p class="form-title">💳 PAYMENT METHOD</p>
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" checked />
+          💵 Cash on Delivery (COD)
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" />
+          📱 GCash
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" />
+          📱 Maya (PayMaya)
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" />
+          🏦 Bank Transfer
+        </label>
+      </div>
+      <hr class="section-divider" />
+      <p class="form-title">📝 ORDER NOTES (optional)</p>
+      <div class="form-group">
+        <textarea placeholder="Any special requests or notes for your order..."></textarea>
+      </div>
+      <button class="submit-btn">⚡ PLACE ORDER NOW</button>
+    </div>
 
-<div class="col-card">
-<div class="col-img anim-spin-float">
-<img src="mew.png" alt="Mew" onerror="this.style.display='none';this.parentNode.innerHTML+='🔮'"/>
-<span class="rarity-badge rarity-mythic">✦ MYTHIC</span>
-</div>
-<div class="col-body">
-<p class="col-number">#151 — New Species Pokémon</p>
-<p class="col-name">MEW</p>
-<span class="col-type psychic">🔮 Psychic</span>
-<p class="col-desc">The rarest figure in the entire PokéMerch lineup. Mew floats on a glowing psychic energy base, with soft translucent fins and an ethereal pink finish. Only a few remain in stock.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>0.4m</span></div>
-<div class="col-stat">Weight: <span>4kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱599</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Mew',599,this)">ADD TO CART</a>
-</div>
-</div>
+    
+    <div class="order-summary">
+      <div class="summary-card">
+        <p class="summary-title">🧾 ORDER SUMMARY</p>
+        <div id="cart-items-list"></div>
+        <div class="summary-item">
+          <span>Shipping Fee</span>
+          <span style="color:#88ff88;">FREE</span>
+        </div>
+        <div class="summary-item">
+          <span>Voucher</span>
+          <span>— None —</span>
+        </div>
+        <div class="summary-total">
+          <span class="label">TOTAL</span>
+          <span class="amount" id="summary-total-amount">₱0.00</span>
+        </div>
+      </div>
 
-<div class="col-card">
-<div class="col-img anim-drift">
-<img src="dragonite.png" alt="Dragonite" onerror="this.style.display='none';this.parentNode.innerHTML+='🐉'"/>
-<span class="rarity-badge rarity-epic">★★★★ EPIC</span>
-</div>
-<div class="col-body">
-<p class="col-number">#149 — Dragon Pokémon</p>
-<p class="col-name">DRAGONITE</p>
-<span class="col-type dragon">🐉 Dragon / Flying</span>
-<p class="col-desc">The gentle Dragon Pokémon standing tall in its classic friendly pose. Every scale and wing vein is hand-painted with extreme detail. A centerpiece for any serious collector.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>2.2m</span></div>
-<div class="col-stat">Weight: <span>210kg</span></div>
-<div class="col-stat">Gen: <span>I</span></div>
-</div>
-<p class="col-price">₱549</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Dragonite',549,this)">ADD TO CART</a>
-</div>
-</div>
+      <div class="guarantee-card">
+        <div class="guarantee-item">✅ 100% Authentic Figures</div>
+        <div class="guarantee-item">🚚 Free Shipping Nationwide</div>
+        <div class="guarantee-item">🔄 15-Day Return Policy</div>
+        <div class="guarantee-item">🛡️ 1 Year Warranty</div>
+        <div class="guarantee-item">📱 Contact: 09671756325</div>
+      </div>
+    </div>
 
-<div class="col-card">
-<div class="col-img anim-wave">
-<img src="rayquaza.png" alt="Rayquaza" onerror="this.style.display='none';this.parentNode.innerHTML+='🌪️'"/>
-<span class="rarity-badge rarity-legendary">⚡ LEGENDARY</span>
-</div>
-<div class="col-body">
-<p class="col-number">#384 — Sky High Pokémon</p>
-<p class="col-name">RAYQUAZA</p>
-<span class="col-type dragon">🌪️ Dragon / Flying</span>
-<p class="col-desc">The Sky High Pokémon in an epic coiling action pose, mounted on a dramatic display stand. Fully articulated body with green metallic scales and fierce yellow markings. The ultimate collector's piece.</p>
-<div class="col-stats">
-<div class="col-stat">Height: <span>7m</span></div>
-<div class="col-stat">Weight: <span>206.5kg</span></div>
-<div class="col-stat">Gen: <span>III</span></div>
-</div>
-<p class="col-price">₱699</p>
-<a href="#" class="col-add-btn" onclick="colAddToCart('Rayquaza',699,this)">ADD TO CART</a>
-</div>
-</div>
-</div>
-<div class="footer">
-© 2025 John Rey's PokéMerch &nbsp;•&nbsp; All Pokémon are trademarks of Nintendo / Game Freak &nbsp;•&nbsp; 📱 09671756325
-</div>
-<script>
+  </div>
 
-function updateCartBadge() {
-try {
-const cart = JSON.parse(localStorage.getItem('pkm_cart') || '[]');
-const total = cart.reduce((sum, i) => sum + i.qty, 0);
-const badge = document.getElementById('nav-cart-count');
-if (badge) badge.textContent = total;
-} catch {}
-}
-function colAddToCart(name, price, btn) {
-try {
-let cart = JSON.parse(localStorage.getItem('pkm_cart') || '[]');
-const existing = cart.find(i => i.name === name);
-if (existing) {
-existing.qty += 1;
-} else {
-cart.push({ name, price, qty: 1, size: '—' });
-}
-localStorage.setItem('pkm_cart', JSON.stringify(cart));
-btn.textContent = '✅ ADDED!';
-btn.style.backgroundColor = '#226622';
-setTimeout(() => {
-btn.textContent = 'ADD TO CART';
-btn.style.backgroundColor = '';
-}, 1500);
-updateCartBadge();
-} catch(e) { console.error(e); }
-}
-updateCartBadge();
-</script>
+  <div class="footer">
+    © 2025 John Rey's PokéMerch &nbsp;•&nbsp; All Pokémon are trademarks of Nintendo / Game Freak &nbsp;•&nbsp; 📱 09671756325
+  </div>
+
+  <script>
+   
+    function loadCart() {
+      try { return JSON.parse(localStorage.getItem('pkm_cart') || '[]'); } catch { return []; }
+    }
+    function saveCart(cart) {
+      localStorage.setItem('pkm_cart', JSON.stringify(cart));
+    }
+
+  
+    function renderSummary() {
+      const cart      = loadCart();
+      const container = document.getElementById('cart-items-list');
+      const totalEl   = document.getElementById('summary-total-amount');
+
+      if (!cart.length) {
+        container.innerHTML = `
+          <div class="cart-empty">
+            <p>Your cart is empty.<br/>Go back and add some figures!</p>
+            <a href="index.html">← BACK TO SHOP</a>
+          </div>`;
+        totalEl.textContent = '₱0.00';
+        return;
+      }
+
+      let grandTotal = 0;
+      container.innerHTML = '';
+
+      cart.forEach((item, i) => {
+        const subtotal = item.price * item.qty;
+        grandTotal += subtotal;
+
+        const block = document.createElement('div');
+        block.className = 'cart-item-block';
+        block.innerHTML = `
+          <div class="cart-item-header">
+            <span class="cart-item-name">${item.name}</span>
+            <button class="cart-item-remove" title="Remove" onclick="removeItem(${i})">✕</button>
+          </div>
+          <div class="cart-item-meta">Size: <span>${item.size}</span></div>
+          <div class="cart-item-meta">Unit Price: <span style="color:#ff4444;">₱${item.price.toLocaleString()}</span></div>
+          <div class="cart-qty-row">
+            <span class="cart-qty-label">QTY</span>
+            <button class="cart-qty-btn" onclick="changeQty(${i}, -1)">−</button>
+            <input class="cart-qty-input" type="number" value="${item.qty}" min="1" max="99"
+              onchange="setQty(${i}, this.value)" />
+            <button class="cart-qty-btn" onclick="changeQty(${i}, 1)">+</button>
+          </div>
+          <div class="cart-item-subtotal">Subtotal: <span>₱${subtotal.toLocaleString()}</span></div>`;
+        container.appendChild(block);
+      });
+
+      
+      const clearBtn = document.createElement('button');
+      clearBtn.className = 'clear-cart-btn';
+      clearBtn.textContent = '🗑️ CLEAR ENTIRE CART';
+      clearBtn.onclick = clearCart;
+      container.appendChild(clearBtn);
+
+      totalEl.textContent = '₱' + grandTotal.toLocaleString();
+    }
+
+ 
+    function removeItem(idx) {
+      let cart = loadCart();
+      cart.splice(idx, 1);
+      saveCart(cart);
+      renderSummary();
+    }
+
+    
+    function changeQty(idx, delta) {
+      let cart = loadCart();
+      cart[idx].qty = Math.max(1, Math.min(99, cart[idx].qty + delta));
+      saveCart(cart);
+      renderSummary();
+    }
+
+   
+    function setQty(idx, val) {
+      let cart = loadCart();
+      const n = parseInt(val);
+      if (isNaN(n) || n < 1) { cart[idx].qty = 1; }
+      else if (n > 99)       { cart[idx].qty = 99; }
+      else                   { cart[idx].qty = n; }
+      saveCart(cart);
+      renderSummary();
+    }
+
+    
+    function clearCart() {
+      if (confirm('Clear all items from your cart?')) {
+        saveCart([]);
+        renderSummary();
+      }
+    }
+
+    
+    (function checkURLParams() {
+      const params = new URLSearchParams(window.location.search);
+      const name  = params.get('name');
+      const price = parseFloat(params.get('price'));
+      const qty   = parseInt(params.get('qty')) || 1;
+      const size  = params.get('size') || '—';
+      if (name && !isNaN(price)) {
+        let cart = loadCart();
+        const existing = cart.find(i => i.name === name && i.size === size);
+        if (existing) { existing.qty += qty; }
+        else          { cart.push({ name, price, qty, size }); }
+        saveCart(cart);
+        window.history.replaceState({}, '', 'checkout.html');
+      }
+    })();
+
+    renderSummary();
+  </script>
+
 </body>
 </html>
